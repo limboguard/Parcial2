@@ -101,7 +101,7 @@ function Graph(props) {
     }
 
     if (props.data) renderGraph();
-  }, [props.data]);
+  }, [props.data, intl]);
 
   return <div id="scatterplot"></div>;
 }
