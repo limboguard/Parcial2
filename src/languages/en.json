@@ -1,0 +1,11 @@
+{
+  "app.title": "T.V Series",
+  "x-axis": "Episodes",
+  "y-axis": "Seasons",
+  "card.offline": "Image not available offline",
+  "header.Name": "Name",
+  "header.Channel": "Channel",
+  "header.Seasons": "Seasons",
+  "header.Episodes": "Episodes",
+  "header.Release Date": "Release Date"
+}

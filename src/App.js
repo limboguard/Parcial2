@@ -4,10 +4,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SeriesTable from "./Components/SeriesTable";
 import DetailCard from "./Components/DetailCard";
+import { FormattedMessage } from "react-intl";
 import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Graph from "./Components/Graph";
 
 const EN_URL =
   "https://gist.githubusercontent.com/josejbocanegra/5dc69cb7feb7945ef58b9c3d84be2635/raw/e2d16f7440d51cae06a9daf37b0b66818dd1fe31/series-en.json";
@@ -19,19 +21,29 @@ function App() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(EN_URL)
-      .then((res) => {
-        setSeries(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    const lang = navigator.language.includes("en") ? "en" : "es";
+    if (!navigator.onLine) {
+      if (localStorage.getItem(lang + "-series") !== null) {
+        setSeries(JSON.parse(localStorage.getItem(lang + "-series")));
+      }
+    } else {
+      axios
+        .get(lang === "en" ? EN_URL : ES_URL)
+        .then((res) => {
+          setSeries(res.data);
+          localStorage.setItem(lang + "-series", JSON.stringify(res.data));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   }, []);
 
   return (
     <Container>
-      <h1>T.V Series</h1>
+      <h1>
+        <FormattedMessage id="app.title" defaultMessage="T.V Series" />
+      </h1>
       <hr />
       <Row>
         <Col xs={selected !== null ? 8 : 12}>
@@ -45,6 +57,9 @@ function App() {
             <DetailCard data={selected !== null ? series[selected] : null} />
           </Col>
         )}
+      </Row>
+      <Row>
+        <Graph data={series} />
       </Row>
     </Container>
   );

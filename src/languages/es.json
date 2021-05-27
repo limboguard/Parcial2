@@ -1,0 +1,11 @@
+{
+  "app.title": "Series de T.V.",
+  "x-axis": "Episodios",
+  "y-axis": "Temporadas",
+  "card.offline": "Imagen no disponible sin conexión",
+  "header.Name": "Nombre",
+  "header.Channel": "Canal",
+  "header.Seasons": "Temporadas",
+  "header.Episodes": "Episodios",
+  "header.Release Date": "Fecha de lanzamiento"
+}
